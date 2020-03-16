@@ -1,0 +1,120 @@
+@import "../../../utils/responsive.scss";
+
+$primary_color: #f09c16;
+$primary_shadow: rgba(240, 156, 22, 0.493);
+$secondery_color: #18d860;
+
+.top_nav_bar {
+  background-color: #fff;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0px 20px 0 rgba(150, 149, 149, 0.068),
+    0 2px 0px 0 rgba(221, 221, 221, 0.048);
+
+  .top_nav_action {
+    margin-right: 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pop_up_card {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    // height: 200px;
+    width: 150px;
+    box-shadow: 0 0px 20px 0 rgba(150, 149, 149, 0.267),
+      0 2px 0px 0 rgba(221, 221, 221, 0.048);
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    display: flex;
+    flex-flow: column;
+    transition: 1s all ease-in;
+  }
+}
+
+.left_nav_bar {
+  background-color: #fff;
+  z-index: 100;
+  max-width: 250px;
+  width: 100%;
+  min-width: 0px;
+  padding: 0px 10px;
+
+  @include phone {
+    display: none;
+    min-width: 83%;
+  }
+
+  ._logo {
+    margin: 25px 0px;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    h2 {
+      color: $primary_color;
+    }
+  }
+}
+
+.item {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $primary_color;
+    color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px 0 $primary_shadow,
+      0 20px 20px 0 rgba(221, 221, 221, 0.048);
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    :first-child {
+      margin-right: 9px;
+    }
+  }
+
+  h5 {
+    font-size: 11px;
+    background-color: $primary_color;
+    padding: 2px 8px;
+    border-radius: 20px;
+    color: #fff;
+    letter-spacing: 0.09em;
+
+    &:hover {
+      color: $primary_color;
+      background-color: #fff;
+    }
+  }
+}
+
+.avater {
+  height: 35px;
+  width: 35px;
+  border-radius: 100px;
+  object-fit: cover;
+}
+
+.count {
+  font-size: 10px;
+  background-color: $primary_color;
+  padding: 2px 5px;
+  border-radius: 100px;
+  color: #fff;
+  border: 2px solid #fff;
+}

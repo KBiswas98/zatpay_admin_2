@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap");
+$max-Width: 1200px;
+$font-color: rgba(0, 0, 0, 0.884);
+
+.shadow {
+  box-shadow: 0 0px 100px 0 rgba(0, 0, 0, 0.103),
+    0 6px 20px 0 rgba(119, 119, 119, 0.19);
+}
+
+a {
+  text-decoration: none;
+  font-weight: 800;
+  color: $font-color;
+}
+
+.login {
+  font-family: "Muli", sans-serif;
+  color: $font-color;
+  .login_card {
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 70vw;
+    height: 70vh;
+    width: 100%;
+    min-width: 250px;
+    position: absolute;
+    margin-left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    border-radius: 10px;
+    justify-content: center;
+
+    div {
+      display: flex;
+      justify-content: center;
+    }
+
+    div:first-child {
+      display: flex;
+      flex: 1;
+      img {
+        width: 30vw;
+        margin: 20px;
+        min-width: 250px;
+      }
+    }
+
+    div:nth-child(2) {
+        // background-color: pink;
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      position: relative;
+      font-size: 11px;
+    //   height: 372px;
+        border: 1px solid rgba(179, 179, 179, 0.425);
+      margin: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.075),
+        0 6px 20px 0 rgba(119, 119, 119, 0.164);
+        max-width: 400px;
+      
+      img {
+        margin-bottom: 20px;
+        height: 35px;
+        width: 70px;
+      }
+      form {
+        display: flex;
+        flex-flow: column wrap-reverse;
+        align-items: center;
+      }
+      .filds {
+        padding: 10px;
+        margin: 7px 21px;
+        height: 20px;
+        width: 250px;
+        border-radius: 5px;
+        background-color: rgba(231, 231, 231, 0.562);
+        border: 1px solid rgb(255, 255, 255);
+      }
+
+      .submit {
+        margin-top: 10px;
+        max-width: 100px;
+        // height: 20px;
+        border-radius: 100px;
+        background-color: #f15d2a;
+        border-width: 0px;
+        padding: 8px 15px;
+        color: rgba(255, 255, 255, 0.911);
+        letter-spacing: 0.05em;
+        font-weight: 700;
+      }
+    }
+  }
+}
