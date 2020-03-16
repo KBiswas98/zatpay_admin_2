@@ -1,7 +1,7 @@
 @import "../../../utils/responsive.scss";
 
-$primary_color: #f09c16;
-$primary_shadow: rgba(240, 156, 22, 0.493);
+$primary_color: #450356;
+$primary_shadow: #45035691;
 $secondery_color: #18d860;
 
 .top_nav_bar {
@@ -117,4 +117,31 @@ $secondery_color: #18d860;
   border-radius: 100px;
   color: #fff;
   border: 2px solid #fff;
+}
+
+
+.sub_options {
+  background-color: rgba(214, 214, 214, 0.295);
+  padding: 10px 10px;
+  display: none;
+}
+
+.mini_items {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  padding-left: 20px;
+
+  h4{ 
+    margin-left: 10px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $primary_color;
+    color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px 0 $primary_shadow,
+      0 20px 20px 0 rgba(221, 221, 221, 0.048);
+  }
 }

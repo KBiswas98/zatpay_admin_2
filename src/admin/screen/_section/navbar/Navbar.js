@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "../../../components/button/Button";
+import { Button, FButton } from "../../../components/button/Button";
 import $ from "jquery";
 import {
   FiMenu,
@@ -10,10 +10,19 @@ import {
   FiUsers,
   FiPackage,
   FiLogOut,
-  FiUser
+  FiUser,
+  FiCommand,
+  FiLayers,
+  FiPrinter,
+  FiTruck
 } from "react-icons/fi";
-import { IoMdNotificationsOutline, IoIosAnalytics } from "react-icons/io";
+import {
+  IoMdNotificationsOutline,
+  IoIosAnalytics,
+  IoIosAddCircleOutline
+} from "react-icons/io";
 import "./navbar.scss";
+import { Link } from "react-router-dom";
 
 const DATA = {
   notification: [
@@ -260,6 +269,22 @@ function TopNavbar() {
 }
 
 function LeftNavbar() {
+  const handelPopup = _id => {
+    console.log("pop");
+    let c = parseInt($(`#${_id}`).attr("value"));
+
+    $("#notification_popup").hide();
+    $("#message_popup").hide();
+    $("#profile_popup").hide();
+    // c = 2;
+    if (c % 2 === 0) {
+      $(`#${_id}`).show();
+      $(`#${_id}`).attr("value", (++c).toString());
+    } else {
+      $(`#${_id}`).hide();
+      $(`#${_id}`).attr("value", (++c).toString());
+    }
+  };
   return (
     <div
       id="left_nav"
@@ -287,24 +312,52 @@ function LeftNavbar() {
         </div>
         {/* <h5>90</h5> */}
       </div>
-      <div className="item">
-        <div>
-          <FiBox />
-          <h4>Products</h4>
+        <div className="item" onClick={() => handelPopup('product_options')}>
+          <div>
+            <FiBox />
+            <h4>Products</h4>
+          </div>
+          <h5>90</h5>
         </div>
-        <h5>90</h5>
+      <div value="2" id="product_options" className="sub_options">
+        <Link to="/seller/products/allproduct" className="mini_items">
+          <FiCommand />
+          <h4>All Products</h4>
+        </Link>
+        <Link to="/seller/products/addproduct" className="mini_items">
+          <IoIosAddCircleOutline />
+          <h4>Add Product</h4>
+        </Link>
+        <Link to="/seller/products/collection" className="mini_items">
+          <FiLayers />
+          <h4>Collections</h4>
+        </Link>
       </div>
-      <div className="item">
+      <div className="item" onClick={() => handelPopup('orders_options')}>
         <div>
           <FiPackage />
           <h4>Orders</h4>
         </div>
         <h5>5</h5>
       </div>
+      <div value="2" id="orders_options" className="sub_options">
+        <div className="mini_items">
+          <FiPackage />
+          <h4>All Orders</h4>
+        </div>
+        <div className="mini_items">
+          <FiPrinter />
+          <h4>Invoices</h4>
+        </div>
+        <div className="mini_items">
+          <FiTruck />
+          <h4>Returns</h4>
+        </div>
+      </div>
       <div className="item">
         <div>
           <FiUsers />
-          <h4>Appearance</h4>
+          <h4>Customers</h4>
         </div>
         <h5>2510</h5>
       </div>
