@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./addproduct.scss";
-
+import { message } from "antd";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-import ImageUploader from "react-images-upload";
+import { Host } from "../../../../constant/Constant";
+import axios from "axios";
 
 const Data = [
   {
@@ -80,87 +80,80 @@ const Data = [
 ];
 
 const Catagory = props => {
-  const [loading, setLoading] = useState(true);
-  var tree = [];
-
-  useEffect(() => {
-    var i = 0;
-    var margin = 50;
-
-    for (let j = 0; j < Data.length - 1; j++)
-      if (i === 0) {
-        Data.sort(function(a, b) {
-          var textA = a.code.toUpperCase();
-          var textB = b.code.toUpperCase();
-          return textA < textB ? -1 : textA > textB ? 1 : 0;
-        });
-      } else {
-        Data.sort(function(a, b) {
-          var textA = "";
-          var textB = "";
-
-          if (a.code.split[i - 1] === a.code.split[i]) {
-            textA =
-              a.code.split("-")[i] === undefined
-                ? ""
-                : a.code.split("-")[i].toUpperCase();
-            textB =
-              b.code.split("-")[i + 1] === undefined
-                ? ""
-                : b.code.split("-")[i + 1].toUpperCase();
-          }
-          console.log("a: " + textA + " b: " + textB);
-          return textA < textB ? -1 : textA > textB ? 1 : 0;
-        });
-      }
-    i++;
-    console.log(Data);
-
-    // for (let i = 1; i < Data.length; i++) {
-    //   machingCatagory(Data[i - 1].code, Data[i].code)
-    //     ? tree.push(
-    //         <div style={{ marginLeft: (margin += 50) }}>{Data[i].name}</div>
-    //       )
-    //     : { machingCatagory(Data[])
-    //       tree.push(<div style={{ marginLeft: margin }}>{Data[i].name}</div>);
-    // }
-
-    setLoading(false);
-
-    console.log(tree);
-  }, []);
-
-  return loading ? (
-    "Loading.."
-  ) : (
-    <div className="collections">
-      {/* {props.data.map((item, index) => (
-        <div key={index}>{item.name}</div>
-      ))} */}
-
-      {tree.map(item => (
-        <item>ok</item>
-      ))}
-    </div>
-  );
-};
-
-const machingCatagory = (previous, current) => {
-  console.log("previous array: " + previous + " and current: " + current);
-  return current.toString().includes(previous.toString());
+  return <div className="collections">ok</div>;
 };
 
 export default function AddProduct() {
-  const [data, setData] = useState({ title: "", dexcription: "", images: [] });
+  const [data, setData] = useState({
+    title: "No name",
+    description: "",
+    catagory: "/woman/sari",
+    stock: "",
+    price: "",
+    offerPrice: "",
+    color: "",
+    brand: "",
+    size: "",
+    delivery: "",
+    youtube: ""
+  });
+  const [images, setImages] = useState("");
 
   const handelChange = eve => {
-    setData(([eve.target.name] = eve.target.value));
+    console.log(data)
+    setData(({ ...data, [eve.target.name] : eve.target.value.toString()}));
   };
 
   const handelFileChange = eve => {
-    console.log(eve);
-    setData(([eve.target.name] = eve.target.files));
+    // console.log(eve.target);
+    setImages(eve.target.files);
+    // setData({images : eve.target.files});
+    // console.log(data);
+  };
+
+  const handelProductSubmit = event => {
     console.log(data);
+
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", data.title);
+    formData.append("description", data.description);
+    formData.append("catagory", data.catagory);
+    formData.append("stock", data.stock);
+    formData.append("price", data.price);
+    formData.append("offer_price", data.offerPrice);
+    formData.append("brand", data.brand);
+    formData.append("color", data.color);
+    formData.append("size", data.size);
+    formData.append("delivery", data.delivery);
+    formData.append("youtube", data.youtube);
+    formData.append("images", data.imgaes);
+
+    for (const file of images) {
+      formData.append("files", file);
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    };
+
+    console.log(formData);
+
+    axios
+      .post(`${Host}/product/add`, formData, config)
+      .then(res => {
+        console.log(res)
+        res.status === 200
+          ? message.success(res.data)
+          : message.error(res.data);
+        console.log("Data Loaded.");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {});
@@ -171,7 +164,7 @@ export default function AddProduct() {
         <Catagory data={Data} />
       </div>
       <div className="adding ">
-        <form>
+        <form onSubmit={handelProductSubmit}>
           <div className="part1 card">
             <h2>Product Details</h2>
             <label>Name</label>
@@ -187,6 +180,7 @@ export default function AddProduct() {
             <label>Details</label>
             <br />
             <CKEditor
+              name="description"
               className="Editor"
               editor={ClassicEditor}
               data="<p>Hello Admin</p><br/> Details<br/> <br/>"
@@ -195,7 +189,8 @@ export default function AddProduct() {
                 console.log("Editor is ready to use!", editor);
               }}
               onChange={(event, editor) => {
-                const data = editor.getData();
+                const _data = editor.getData();
+                setData( {...data,  description:  data.description + _data });
                 console.log({ event, editor, data });
               }}
               onBlur={(event, editor) => {
@@ -208,7 +203,12 @@ export default function AddProduct() {
           </div>
           <div className="part1 card">
             <h2>Images</h2>
-            <input type="file" multiple onChange={handelFileChange} />
+            <input
+              name="images"
+              type="file"
+              multiple
+              onChange={handelFileChange}
+            />
           </div>
           <div className="part2 card">
             <h2>Price</h2>
@@ -247,7 +247,12 @@ export default function AddProduct() {
                 <div className="section">
                   <label>Catagory*</label>
                   <br />
-                  <input type="text" onChange={handelChange} name="catagory" />
+                  <input value={data.catagory} type="text" onChange={handelChange} name="catagory" />
+                </div>
+                <div className="section">
+                  <label>youtube</label>
+                  <br />
+                  <input type="text" onChange={handelChange} name="youtube" />
                 </div>
               </div>
 
@@ -262,8 +267,25 @@ export default function AddProduct() {
                   <br />
                   <input type="text" onChange={handelChange} name="color" />
                 </div>
+                <div className="section">
+                  <label>delivery</label>
+                  <br />
+                  <input type="text" onChange={handelChange} name="delivery" />
+                </div>
               </div>
             </div>
+          </div>
+          <div>
+            <input
+              type="submit"
+              value="submit"
+              className="button-x"
+              style={{
+                marginLeft: 10,
+                color: "black",
+                borderColor: "black"
+              }}
+            />
           </div>
         </form>
       </div>
@@ -271,10 +293,3 @@ export default function AddProduct() {
   );
 }
 
-const BesicDetails = () => {
-  return (
-    <div>
-      <input type="text" name="Name" placeholder="name" />
-    </div>
-  );
-};

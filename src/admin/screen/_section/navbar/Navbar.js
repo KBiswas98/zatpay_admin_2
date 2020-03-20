@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, FButton } from "../../../components/button/Button";
+import { Button } from "../../../components/button/Button";
 import $ from "jquery";
 import {
   FiMenu,
@@ -179,6 +179,7 @@ function TopNavbar() {
         </Button>
         <Button onClick={() => handelPopup("profile_popup")}>
           <img
+            alt="profile"
             className="avater"
             src={require("../../../assets/images/profile_placeholder.jpg")}
           />
@@ -232,7 +233,7 @@ function TopNavbar() {
           {data.message.map((_message, index) => (
             <div className="item" key={index}>
               <div>
-                <img className="avater" src={_message.profie_pic} />
+                <img alt="avater" className="avater" src={_message.profie_pic} />
                 <h4>{_message.name}</h4>
               </div>
               <h5>{_message.message.length}</h5>
@@ -293,6 +294,7 @@ function LeftNavbar() {
     >
       <div className="_logo">
         <img
+          alt="logo"
           src={require("../../../assets/logo/logo_web.png")}
           style={{ height: 50, width: 150, marginRight: 10 }}
         />
