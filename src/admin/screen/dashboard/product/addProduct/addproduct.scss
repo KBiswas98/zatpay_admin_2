@@ -1,0 +1,90 @@
+$primary_shadow: #8585852c;
+$secoendary: #f9f9f9;
+
+.collections {
+  width: 300px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px 0 $primary_shadow,
+    0 20px 20px 0 rgba(221, 221, 221, 0.048);
+}
+
+// Data.sort(function(a, b) {
+//     if (i === 0) {
+//       var textA = a.code.toUpperCase();
+//       var textB = b.code.toUpperCase();
+//     } else {
+//       var textA = "";
+//       var textB = "";
+
+//       if (a.code.split[i - 1] === a.code.split[i])
+//         textA =
+//           a.code.split("-")[i] === undefined
+//             ? ""
+//             : a.code.split("-")[i].toUpperCase();
+//       textB =
+//         a.code.split("-")[i + 1] === undefined
+//           ? ""
+//           : a.code.split("-")[i + 1].toUpperCase();
+//     }
+//     i++;
+//     console.log("a: " + textA + " b: " + textB);
+//     return textA < textB ? -1 : textA > textB ? 1 : 0;
+//   })
+
+.add_product {
+  display: flex;
+  flex-flow: row wrap;
+  background-color: $secoendary;
+  .adding {
+    flex: 1;
+
+    .part2 {
+      display: flex;
+      flex-direction: column;
+      .holder {
+        display: flex;
+        .section {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .part3 {
+      .holder {
+        display: flex;
+        flex-flow: row wrap;
+        .section {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+label {
+  margin: 5px 0px;
+}
+
+.input_a {
+  margin: 5px 0px;
+  width: 100%;
+  height: 28px;
+  border-radius: 2px;
+  border: 1px solid black;
+  letter-spacing: 0.02em;
+}
+
+.Editor {
+  height: 500px;
+}
+
+.card {
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px 0 $primary_shadow,
+    0 20px 20px 0 rgba(221, 221, 221, 0.048);
+  margin: 20px;
+  padding: 20px;
+}
